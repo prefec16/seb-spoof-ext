@@ -9,6 +9,6 @@ Firefox extension allowing the user to spoof the usage of [SafeExamBrowser](http
 ## Usage
 
 * [Download and start the companion application](https://github.com/prefec16/seb-ext-companion#usage)
-* Download the extension from [here](https://github.com/prefec16/seb-spoof-ext/releases) (just clicking the `*.xpi`) should trigger the installation
-* On your moodle exam page, a new "Launch with seb-spoof-extension" should be automatically injected
+* Download the extension from [here](https://github.com/prefec16/seb-spoof-ext/releases) (just clicking the `*.xpi` should trigger the installation)
+* On your moodle exam page, a new "Launch with seb-spoof-extension" should be automatically be injected
 

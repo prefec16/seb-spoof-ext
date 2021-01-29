@@ -9,7 +9,8 @@ const QUIZ_ATTEMPT_DIV = "box py-3 quizattempt";
 
     let allForms = document.getElementsByTagName("form");
     for (let form of allForms) {
-        if (form.action.startsWith(SEB_PREFIX)) {
+        console.log(form);
+        if (form.action.startsWith(SEB_PREFIX) || form.action.startsWith(SEBS_PREFIX)) {
             let input = form.children[0];
             if (input.name === CMID) {
                 let id = input.value;
@@ -37,10 +38,12 @@ const QUIZ_ATTEMPT_DIV = "box py-3 quizattempt";
 })();
 
 function replacePrefix(str){
-    if(str.contains(SEB_PREFIX)){
+    if(str.includes(SEB_PREFIX)){
         return str.replace(SEB_PREFIX, PROTOCOL);
-    } else if(str.contains(SEBS_PREFIX)){
+    } else if(str.includes(SEBS_PREFIX)){
         return str.replace(SEBS_PREFIX, PROTOCOL);
+    } else {
+        return str;
     }
 }
 

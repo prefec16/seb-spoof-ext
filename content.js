@@ -1,4 +1,5 @@
 const SEB_PREFIX = "seb://";
+const SEBS_PREFIX = "sebs://";
 const PROTOCOL = location.protocol + "//";
 const CMID = "cmid";
 const QUIZ_ATTEMPT_DIV = "box py-3 quizattempt";
@@ -12,7 +13,7 @@ const QUIZ_ATTEMPT_DIV = "box py-3 quizattempt";
             let input = form.children[0];
             if (input.name === CMID) {
                 let id = input.value;
-                let requestUrl = form.action.replace(SEB_PREFIX, PROTOCOL) + "?" + CMID + "=" + id;
+                let requestUrl = replacePrefix(form.action) + "?" + CMID + "=" + id;
 
                 let launchBtn = document.createElement("button");
                 launchBtn.classList.add("btn", "btn-secondary");
@@ -35,6 +36,13 @@ const QUIZ_ATTEMPT_DIV = "box py-3 quizattempt";
     }
 })();
 
+function replacePrefix(str){
+    if(str.contains(SEB_PREFIX)){
+        return str.replace(SEB_PREFIX, PROTOCOL);
+    } else if(str.contains(SEBS_PREFIX)){
+        return str.replace(SEBS_PREFIX, PROTOCOL);
+    }
+}
 
 
 

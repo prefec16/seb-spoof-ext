@@ -12,34 +12,32 @@ browser.runtime.onMessage.addListener(async (msg) => {
 
         if (configRequest.status === 200) {
             let config = await configRequest.text();
-            let keyRequest = await fetch(COMPANION_LOCATION + "/keys", {
+            let sebQuizVariableResponse = await fetch(COMPANION_LOCATION + "/keys", {
                 method: "POST",
                 body: JSON.stringify({
-                    config: config
+                    config
                 })
             });
 
-            console.log(keyRequest);
+            if (sebQuizVariableResponse.status === 200) {
+                let {configKey, browserExamKey, userAgent} = await sebQuizVariableResponse.json();
 
-            if (keyRequest.status === 200) {
-                let keys = await keyRequest.json();
-                console.log(keys);
-                browser.webRequest.onBeforeSendHeaders.addListener(e => headerListener(e, keys), {urls: [msg.website + "/*"]}, ["requestHeaders", "blocking"]);
+                browser.webRequest.onBeforeSendHeaders.addListener(e => headerListener(e, configKey, browserExamKey, userAgent),
+                    {urls: [msg.website + "/*"]},
+                    ["requestHeaders", "blocking"]
+                );
             }
         }
     }
 });
 
-function headerListener(event, keys) {
+function headerListener(event, configKey, browserExamKey, userAgent) {
     let url = event.url;
-    console.log("requesting " + url);
-
     return new Promise(((resolve, reject) => {
         fetch(COMPANION_LOCATION + "/urlhashes", {
             method: "POST",
             body: JSON.stringify({
-                url: url,
-                ...keys
+                url, configKey, browserExamKey
             })
         }).then(response => {
             if (response.status === 200) {
@@ -50,7 +48,8 @@ function headerListener(event, keys) {
                         ["Sec-Fetch-Site", "none"],
                         ["Sec-Fetch-Mode", "navigate"],
                         ["Sec-Fetch-User", "?1"],
-                        ["Sec-Fetch-Dest", "document"]
+                        ["Sec-Fetch-Dest", "document"],
+                        ["User-Agent", userAgent]
                     ]).forEach((value, key) => {
                         event.requestHeaders.push({name: key, value: value});
                     });

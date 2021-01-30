@@ -4,7 +4,7 @@ Firefox extension allowing the user to spoof the usage of [SafeExamBrowser](http
 
 ## Demo
 
-![](demo.gif)
+![](res/demo.gif)
 
 ## Usage
 

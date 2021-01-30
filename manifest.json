@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "seb-spoof-ext",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Spoofs the usage of Safe Exam Browser",
   "content_scripts": [
     {
@@ -9,13 +9,13 @@
         "<all_urls>"
       ],
       "js": [
-        "content.js"
+        "src/content.js"
       ]
     }
   ],
   "background": {
     "scripts": [
-      "background.js"
+      "src/background.js"
     ]
   },
   "permissions": [
